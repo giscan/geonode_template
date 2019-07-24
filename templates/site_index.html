@@ -15,36 +15,36 @@ This is where you can override the hero area block. You can simply modify the co
           <div class="item img1">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Welcome in ONSDI")}}</h1>
                     <p></p>
-                    <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
-                    <p><a class="btn btn-default btn-lg"
-                            href="{% url "layer_browse" %}"
-                            role="button">{{custom_theme.jumbotron_cta_text|default:_("Explore Layers &raquo;")}}</a></p>
+                    <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open National Spatial Data Infrastructures.")}}</p>
               </div>
             </div>
           </div>
           <div class="item img2 active">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Geospatial Data Portal ")}}</h1>
                 <p></p>
-                <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
-                <p><a class="btn btn-default btn-lg"
-                        href="{% url "maps_browse" %}"
-                        role="button">{{custom_theme.jumbotron_cta_text|default:_("Explore Maps &raquo;")}}</a></p>
+                <p>{{custom_theme.jumbotron_welcome_content|default:_("ONSDI allow access to spatial data catalog in Mauritius.")}}</p>
               </div>
             </div>
           </div>
           <div class="item img3">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Create Maps")}}</h1>
                 <p></p>
-                <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
-                <p><a class="btn btn-default btn-lg"
-                        href="{% url "document_browse" %}"
-                        role="button">{{custom_theme.jumbotron_cta_text|default:_("Explore Documents &raquo;")}}</a></p>
+                <p>{{custom_theme.jumbotron_welcome_content|default:_("With ONSDI, create and custom maps from existing layers without using a GIS software.")}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="item img4">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Download Data")}}</h1>
+                <p></p>
+                <p>{{custom_theme.jumbotron_welcome_content|default:_("Download layers, maps, documents and feel free to reuse them.")}}</p>
               </div>
             </div>
           </div>
@@ -62,11 +62,16 @@ This is where you can override the hero area block. You can simply modify the co
 </div>
 {% endblock hero %}
 
+{% block bigsearch %}
+
+{% endblock bigsearch %}
+{% block datasets %}
+{% endblock datasets %}
+
 {% block showcase %}
       <section id="showcase">
         <div class="row">
           <div class="container text-center" style="width:80%">
-            <h2>{% trans "Featured Datasets" %}</h2>
             <div class="row home-facets">
             {% with facet_type='home' %}
              {% facets as facets %}
@@ -116,7 +121,6 @@ This is where you can override the hero area block. You can simply modify the co
                   </div>
                 </div>
           		{% endverbatim %}
-                <p><a href="/search/">{% trans "Explore all datasets" %}</a></p>
             </div>
         </div>
       </section>
