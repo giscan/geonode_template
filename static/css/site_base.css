@@ -5,21 +5,9 @@ body {
 .navbar-brand {
     width: 373px;
     height: 79px;
-    background: url("../img/mauritius_government_logo_160px.png"), url("../img/national_computer_board_160px.jpg");
-    background-repeat: no-repeat, no-repeat;
-    background-position: left, right;
-    background-size: 50% 100%, 50% 100%;
-
+    background: transparent url("../img/logo.png") no-repeat scroll 50% 50%;
 }
 
-.separator {
-    border-left: 6px solid rgba(0, 0, 0, 0.5);;
-    height: 79px;
-    position: absolute;
-    left: 29.5%;
-    margin-left: -3px;
-    top: 0;
-}
 
 .home .jumbotron {
 
