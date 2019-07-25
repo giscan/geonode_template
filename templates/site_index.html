@@ -15,9 +15,9 @@ This is where you can override the hero area block. You can simply modify the co
           <div class="item img1">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Welcome in ONSDI")}}</h1>
                     <p></p>
-                    <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
+                    <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open National Spatial Data Infrastructure")}}</p>
                     <p>
 						<!--<a class="btn btn-default btn-lg"
                             href="{% url "layer_browse" %}"
@@ -29,9 +29,9 @@ This is where you can override the hero area block. You can simply modify the co
           <div class="item img2 active">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Geospatial Data Portal")}}</h1>
                 <p></p>
-                <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
+                <p>{{custom_theme.jumbotron_welcome_content|default:_("ONSDI allow access to spatial data catalog in Mauritius")}}</p>
                 <p>
 					<!--
 					<a class="btn btn-default btn-lg"
@@ -44,9 +44,9 @@ This is where you can override the hero area block. You can simply modify the co
           <div class="item img3">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{custom_theme.jumbotron_welcome_title|default:_("ONSDI")}}</h1>
+                <h1>{{custom_theme.jumbotron_welcome_title|default:_("Create Maps")}}</h1>
                 <p></p>
-                <p>{{custom_theme.jumbotron_welcome_content|default:_("Mauritius Open Source National Spatial Data Infrastructures.")}}</p>
+                <p>{{custom_theme.jumbotron_welcome_content|default:_("With ONSDI, create and custom maps from existing layers without using a GIS software")}}</p>
                 <p>
 					<!--<a class="btn btn-default btn-lg"
                         href="{% url "document_browse" %}"
@@ -87,7 +87,7 @@ This is where you can override the hero area block. You can simply modify the co
               <div class="col-md-4">
                 <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x"></i></a></p>
                 <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-                <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be saved, downloaded, shared publicly or restricted to specify users only." %}</p>
+                <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
 
               </div>
               <div class="col-md-4">
@@ -112,6 +112,158 @@ This is where you can override the hero area block. You can simply modify the co
                   </div>
                 </div>
           		{% endverbatim %}
+          		                <div class="col-md-3 col-md-3_no_padding" >
+                    <img src="static/img/rouge.jpg">
+                </div>
+                <div class="col-md-3 col-md-3_no_padding" >
+                    <img src="static/img/bleu.jpg">
+                </div>
+                <div class="col-md-3 col-md-3_no_padding" >
+                    <img src="static/img/jaune.jpg">
+                </div>
+                <div class="col-md-3 col-md-3_no_padding" >
+                    <img src="static/img/vert.jpg">
+                </div>
+                
+                
+                
+<!-- Last maps ================================================== -->                
+                <div class="block">
+
+{% verbatim %}
+<div class="row resourcebase-snippet">
+  <div ng-if="results.length == 0" ng-cloak>
+    {% endverbatim %}
+    <div><h3>{% trans "No content created yet." %}</h3></div>
+    {% verbatim %}
+  </div>
+  <article ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+    <div class="col-lg-12 item-container">
+      <div class="col-lg-12 profile-avatar">
+        <div class="col-lg-4 item-thumb">
+          <a href="{{ item.detail_url }}">
+            <img ng-src="{{ item.thumbnail_url }}" />
+          </a>
+        </div>
+        <div class="col-lg-8 item-details">
+          <div class="row">
+            <div class="col-xs-10">
+              <p class="item-meta">
+                  <span class="item-category">{{ item.category__gn_description }}</span><br>
+                  <span class="item-category" ng-if="item.group"><a href="{{ item.site_url }}groups/group/{{ item.group }}/activity/"><i class="fa fa-group" aria-hidden="true" style="margin-right: 8px;"></i>{{ item.group_name }}</a><br></span>
+                  <span class="item-category" ng-if="item.has_time">
+                    {% endverbatim %}
+                    <i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 8px;"></i>{% trans "Temporal Serie" %}<br>
+                    {% verbatim %}
+                  </span>
+              </p>
+              <h4>
+                  <i ng-if="item.store_type == 'remoteStore'" title="Remote Service" class="fa fa-external-link fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'dataStore'" title="Vector Data" class="fa fa-pencil-square-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'coverageStore'" title="Raster Data" class="fa fa-picture-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'dataset'" title="File/Dataset" class="fa fa-newspaper-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <i ng-if="item.store_type == 'map'" title="Map" class="fa fa-map-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <a href="{{ item.detail_url }}">{{ item.title }}</a>
+              </h4>
+            </div>
+            <div class="col-xs-2">
+              <h4>
+                <button
+                  class="btn btn-default btn-xs pull-right"
+                  ng-if="cart"
+                  ng-click="cart.toggleItem(item)"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Select"><i ng-class="cart.getFaClass(item.id)" class="fa fa-lg"></i></button>
+              </h4>
+            </div>
+          </div>
+          <em ng-if="item.online && item.store_type == 'remoteStore'">
+            {% endverbatim %}
+            <span ng-if="item.online == true"><i class="fa fa-power-off text-success"></i> {% trans "Service is" %} {% trans "online" %}</span>
+            <span ng-if="item.online == false"><i class="fa fa-power-off text-danger"></i> {% trans "Service is" %} {% trans "offline" %}</span>
+            {% verbatim %}
+          </em>
+		  {% endverbatim %}
+          <div class="alert alert-danger" ng-if="item.dirty_state == true">{% trans "SECURITY NOT YET SYNCHRONIZED" %}
+              {% verbatim %}<a href="{{ item.detail_url }}" class="btn btn-primary btn-block" data-dismiss="modal" ng-click="securityRefreshButton($event)">{% endverbatim %}{% trans "Sync permissions immediately" %}</a>
+          </div>
+          <div class="alert alert-warning" ng-if="item.dirty_state == false && item.is_approved == false">{% trans "PENDING APPROVAL" %}</div>
+          <div class="alert alert-danger" ng-if="item.dirty_state == false && item.is_approved == true && item.is_published == false">{% trans "UNPUBLISHED" %}</div>
+          {% verbatim %}
+
+          <p class="abstract">{{ item.abstract | limitTo: 300 }}{{ item.abstract.length  > 300 ? '...' : ''}}</p>
+          <div class="row">
+            <div class="col-lg-12 item-items">
+              <ul class="list-inline">
+                <li><a href="{{ item.site_url }}people/profile/{{ item.owner__username }}"><i class="fa fa-user"></i>{{ item.owner_name }}</a></li>
+                <li><a href="{{ item.detail_url }}#info"><i class="fa fa-calendar-o"></i>{{ item.date|date:'d MMM y' }}</a></li>
+                <li><a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ item.popular_count }}</a></li>
+                <li><a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a></li>
+                <li><a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a></li>
+                <li><a ng-if="item.detail_url.indexOf('/layers/') > -1" href="{% endverbatim %}{% url "new_map" %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}">
+                  {% endverbatim %}
+                  <i class="fa fa-map-marker"></i>{% trans "Create a Map" %}</a>
+                  {% verbatim %}
+                </li>
+                <li><a ng-if="item.detail_url.indexOf('/maps/') > -1" href="{{ item.site_url }}maps/{{item.id}}/view">
+                  {% endverbatim %}
+                  <i class="fa fa-map-marker"></i>{% trans "View Map" %}</a>
+                  {% verbatim %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+{% endverbatim %}
+<i ng-if="item.store_type == 'map'" title="Map" class="fa fa-map-o fa-1" style="vertical-align:  middle;padding-right: 10px;"></i>
+                  <a href="{{ item.detail_url }}">{{ item.title }}</a>
+
+<!-- End last maps ================================================== -->                
+
+
+
+
+{% block extra_script %}
+{{ block.super }}
+  {% if GEONODE_SECURITY_ENABLED %}
+    {% include "_permissions_form_js.html" %}
+  {% endif %}
+  <script type="text/javascript">
+      {% if HAYSTACK_SEARCH %}
+          SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='base' %}?type__in=map'
+      {% else %}
+          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='maps' %}';
+      {% endif %}
+      FILTER_TYPE = 'map';
+  </script>
+  {% with include_spatial='true' %}
+  {% include 'search/search_scripts.html' %}
+  {% endwith %}
+{% endblock extra_script %}
+                </div>
+                
+                
+                
+                
+				<div class="block" style="margin:auto;width:600px">
+
+					<div class="col-md-4 col-md-4_no_padding" style="width:300px; padding-top: 50px">
+						<div class="container_img_logos_bottom">
+						<a target="_blank" href=""><img src="/static/img/mauritius_government_logo_160px.png"></a>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-4_no_padding" style="width: 300px; padding-top:50px">
+						<div class="container_img_logos_bottom">
+						<a target="_blank" href=""><img src="/static/img/national_computer_board_160px.jpg"></a>
+						</div>
+					</div>
+				</div>
+                
                 <!--<p><a href="/search/">{% trans "Explore all datasets" %}</a></p>-->
             </div>
         </div>
