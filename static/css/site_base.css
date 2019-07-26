@@ -107,11 +107,16 @@ body {
 
 }
 
+.home #showcase .home-facets .col-md-3 {
+
+    padding: 0;
+
+}
+
 .icon_resource {
 
     position: relative;
-    top: -35px;
-    left: 15px;
+    left: 5px;
 
 }
 
