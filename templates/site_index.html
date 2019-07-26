@@ -62,12 +62,15 @@ This is where you can override the hero area block. You can simply modify the co
 {% block showcase %}
       <section id="showcase">
         <div class="row">
-          <div class="container text-center" style="width:80%">
+          <div class="container text-center" style="width:70%">
             <div class="row home-facets">
             {% with facet_type='home' %}
              {% facets as facets %}
               <div class="col-md-4">
-                <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-4x rotate-45"></i></a></p>
+                <span  class="col-md-3" >
+                    <a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-4x rotate-45 icon_resource" style="left:25px"></i></a>
+                </span>
+                 <div class="col-md-9 tag_index_resource-col-md-9" >
                 <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
                 <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p>
                 {% if user.is_authenticated %}
@@ -75,9 +78,13 @@ This is where you can override the hero area block. You can simply modify the co
                 {% else %}
                 <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
                 {% endif %}
+                 </div>
               </div>
               <div class="col-md-4">
-                <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x"></i></a></p>
+                <span  class="col-md-3" >
+                    <a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x icon_resource" style="left:35px"></i></a>
+                </span>
+                <div class="col-md-9 tag_index_resource-col-md-9" >
                 <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
                 <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be saved, downloaded, shared publicly or restricted to specify users only." %}</p>
                 {% if user.is_authenticated %}
@@ -85,9 +92,13 @@ This is where you can override the hero area block. You can simply modify the co
                 {% else %}
                 <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
                 {% endif %}
+                </div>
               </div>
               <div class="col-md-4">
-                <p><a href="{% url "document_browse" %}"><i class="fa fa-newspaper-o fa-4x"></i></a></p>
+                <span  class="col-md-3" >
+                    <a href="{% url "document_browse" %}"><i class="fa fa-newspaper-o fa-4x icon_resource"></i></a>
+                </span>
+                <div class="col-md-9 tag_index_resource-col-md-9" >
                 <h2><a href="{% url "document_browse" %}">{{ facets.document|default:_("No") }} {% blocktrans count counter=facets.document %}Document{% plural %}Documents{% endblocktrans %}</a></h2>
                 <p>{% trans "As for the layers and maps GeoNode allows to publish tabular and text data, manage theirs metadata and associated documents." %}</p>
                 {% if user.is_authenticated %}
@@ -95,6 +106,7 @@ This is where you can override the hero area block. You can simply modify the co
                 {% else %}
                 <p class="text-center"><a class="btn btn-default" href="{% url "document_browse" %}" role="button">{% trans "Explore documents" %} &raquo;</a></p>
                 {% endif %}
+                </div>
               </div>
             {% endwith %}
             </div>
@@ -125,6 +137,23 @@ This is where you can override the hero area block. You can simply modify the co
                     <img src="static/img/vert.jpg">
                 </div>
 
+                {% block extra_script %}
+                {{ block.super }}
+                  {% if GEONODE_SECURITY_ENABLED %}
+                    {% include "_permissions_form_js.html" %}
+                  {% endif %}
+                  <script type="text/javascript">
+                      {% if HAYSTACK_SEARCH %}
+                          SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='base' %}?type__in=map'
+                      {% else %}
+                          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='maps' %}';
+                      {% endif %}
+                      FILTER_TYPE = 'map';
+                  </script>
+                  {% with include_spatial='true' %}
+                  {% include 'search/search_scripts.html' %}
+                  {% endwith %}
+                {% endblock extra_script %}
 
 				<div class="block" style="margin:auto;width:600px">
 

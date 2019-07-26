@@ -82,7 +82,7 @@ body {
 }
 
 
-.home #showcase p {
+.home #showcase p, i {
 
     font-size: 14px;
 
@@ -92,6 +92,32 @@ body {
 
     font-size: 25px;
     margin-top: 0
+
+}
+
+.home #showcase .fa-4x {
+
+    font-size: 3.5em;
+
+}
+
+.home-facets {
+
+    text-align: left;
+
+}
+
+.icon_resource {
+
+    position: relative;
+    top: -35px;
+    left: 15px;
+
+}
+
+.not-icon-doc .icon_resource {
+
+    left: 25px
 
 }
 
