@@ -75,15 +75,23 @@ body {
 
 }
 
+.home #showcase {
+    background: #eeeeee;
+    padding: 0 0 2em 0;
+    text-align: center;
+}
+
+
 .home #showcase p {
 
-    font-size: 15px;
+    font-size: 14px;
 
 }
 
 .home #showcase h2 {
 
-    font-size: 30px;
+    font-size: 25px;
+    padding-top: 0
 
 }
 
