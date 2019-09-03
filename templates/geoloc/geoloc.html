@@ -1,10 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+{% load leaflet_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+<link rel="stylesheet" href="http://cdn.rawgit.com/Turbo87/leaflet-sidebar/master/src/L.Control.Sidebar.css">
+<script src="http://cdn.rawgit.com/Turbo87/leaflet-sidebar/master/src/L.Control.Sidebar.js"></script>
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+/* Add styles to the form container */
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input {
+  width: 100%;
+  padding: 15px 0;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
 <body>
-$END$
-</body>
-</html>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css' type='text/css'/>
+<div id="sidebar">
+    <form class="form-container" >
+    <h1>Add Bus Stop</h1>
+
+    <label><b>Name</b></label>
+    <input id="bus-stop" type="text" placeholder=" Enter Name of Bus Stop" required>
+
+    <button type="submit" class="btn" onclick="addMarker()">Save</button>
+  </form>
+</div>
+<div id='map'></div>
+<script>
+var map = L.map('map', {
+    center: [-20.2425,57.5917],
+    zoom: 11
+    }
+);
+
+var geojson = "https://gist.githubusercontent.com/Fanevanjanahary/8a506415f86d5819078fa36eb6fb6787/raw/13f336ddad29bede1585061ade1be9c72fdfbf11/bus_stop_mauritius.json"
+
+L.geoJSON(geojson).addTo(map)
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoiZmFuZXZhIiwiYSI6ImNqZGxhOW5rMDA0bnkzM3A4MmJldm8ydmQifQ.EKyPWlXVcZ6ZcP_5ve6GOQ'
+}).addTo(map);
+
+busStops = [];
+
+L.control.locate({
+    icon: 'fa fa-location-arrow'
+}).addTo(map);
+
+var drawControl = new L.Control.Draw({
+draw: {
+         circle: false,
+         rectangle: false
+      }}
+);
+map.addControl(drawControl);
+
+var sidebar = L.control.sidebar('sidebar', {
+    position: 'right'
+});
+
+drawnItems = L.featureGroup().addTo(map);
+
+map.addControl(sidebar);
+
+map.on(L.Draw.Event.CREATED, function (event) {
+   var layer = event.layer;
+   feature = layer.feature = layer.feature || {};
+   feature.type = feature.type || "Feature";
+   var props = feature.properties = feature.properties || {};
+   props.name = null;
+   drawnItems.addLayer(layer);
+   sidebar.show();
+
+});
+
+function addMarker(){
+    var nameValue = document.getElementById("bus-stop").value;
+    var json = drawnItems.toGeoJSON();
+    var length = json.features.length;
+    json.features[length - 1].properties.name = nameValue;
+    busStops.push(json)
+
+</script>
