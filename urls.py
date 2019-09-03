@@ -18,18 +18,21 @@
 #
 #########################################################################
 
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.views.generic import TemplateView
 
 from geonode.urls import urlpatterns
+from geoloc.views import MapNew
 
 urlpatterns += [
-## include your urls here
+    # include your urls here
+
+    url(r'^new_point/$', MapNew.as_view(), name='map_new'),
 
 ]
 
 urlpatterns = [
-   url(r'^/?$',
-       TemplateView.as_view(template_name='site_index.html'),
-       name='home'),
- ] + urlpatterns
+                  url(r'^/?$',
+                      TemplateView.as_view(template_name='site_index.html'),
+                      name='home'),
+              ] + urlpatterns
